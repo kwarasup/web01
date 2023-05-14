@@ -1,0 +1,17 @@
+services:
+  front:
+    image: web:1.00
+    build:
+      context: front
+      dockerfile: front/Dockerfile
+    ports:
+      - "8000:80"
+  back:
+    image: openjdk:17-jdk-alpine
+    working_dir: /app
+    command: sh -c "./mvnw clean package && java -jar ./target/*.jar"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./api:/app
+
